@@ -5,7 +5,7 @@ setup(
     version="0.1.0",
     description="A brief description of your project",
     author="rsansicle",
-    url="https://github.com/rsansicle/helper",
+    url="https://github.com/rsansicle/helper.git",
     packages=find_packages(),
     install_requires=[
         "boto3==1.35.65",
