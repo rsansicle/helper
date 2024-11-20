@@ -9,6 +9,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "boto3==1.35.65",
+        "python-dotenv==1.0.0"
     ],
     python_requires=">=3.7"
 )
