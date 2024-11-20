@@ -13,7 +13,7 @@ class Operations:
         except Exception as e:
             raise(f"Error with client setups: {e}")
 
-    def send_to_s3(self, filename, client, upload_bucket, upload_key):
+    def send_to_s3(self, filename, upload_bucket, upload_key):
         """Will take a file from the root folder in which the function is being run from and upload to the respective S3 bucket (upload bucket + upload key)
         """
         upload_key = upload_key + filename
