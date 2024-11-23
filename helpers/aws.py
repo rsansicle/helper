@@ -32,6 +32,7 @@ class Operations:
                 'status': False,
                 'message': f"{filename} upload unsuccessful with error:\n{str(e)}"
             }
+            return message
 
     def pull_from_s3(self, bucket, key, filename):
         try:
@@ -46,10 +47,11 @@ class Operations:
                 'status': False,
                 'message': f"Unable to download {filename} from {bucket} with error:\n{str(e)}"
             }
+            return message
 
     def get_secret(self, secret_key):
         try:
-            response = self.secret_manager.get_secret_value(secret_key)
+            response = self.secret_manager.get_secret_value(SecretId= secret_key)
             secret_value = response['SecretString']
 
             message = {
@@ -65,3 +67,5 @@ class Operations:
                 'value': None,
                 'message': f"Unable to extract secret for {secret_key} with exception:\n{str(e)}"
             }
+
+            return message
