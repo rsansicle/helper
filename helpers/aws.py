@@ -10,7 +10,7 @@ class Operations:
                  region = "us-east-1"):
         try:
             self.s3 = boto3.client('s3') if s3 else None
-            self.secret_manager = boto3.client('secretsmanager', region = region) if secret_manager else None
+            self.secret_manager = boto3.client('secretsmanager', region_name = region) if secret_manager else None
         except Exception as e:
             raise(f"Error with client setups: {e}")
 
