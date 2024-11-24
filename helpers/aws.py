@@ -52,11 +52,12 @@ class Operations:
     def get_secret(self, secret_key):
         try:
             response = self.secret_manager.get_secret_value(SecretId= secret_key)
-            secret_value = response['SecretString']
+            secret_dict = eval(response['SecretString'])
+            secrets = list(secret_dict.values())[0]
 
             message = {
                 'status': True,
-                'value': secret_value,
+                'value': secrets,
                 'message': f"Secret value for {secret_key} extracted successfully"
             }
             return message
