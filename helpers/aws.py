@@ -1,5 +1,6 @@
 import boto3
 import dotenv
+from io import StringIO
 
 dotenv.load_dotenv()
 
@@ -71,3 +72,12 @@ class Operations:
             }
 
             return message
+
+    def df_to_s3(self, df, bucket: str, key:str, file_name):
+        csv_buffer = StringIO()
+        df.to_csv(csv_buffer)
+
+        s3 = boto3.resource('s3')
+        object = s3.Object(bucket, key + file_name)
+
+        object.put(Body=csv_buffer.getvalue())
