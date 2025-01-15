@@ -8,13 +8,18 @@ class Operations:
     def __init__(self,
                  s3 = True,
                  secret_manager = True,
-                 region = "us-east-1"):
+                 region = "us-east-1",
+                 s3_bucket = None,
+                 s3_key = None):
         try:
             self.s3 = boto3.client('s3') if s3 else None
             self.s3_resource = boto3.resource('s3') if s3 else None
             self.secret_manager = boto3.client('secretsmanager', region_name = region) if secret_manager else None
         except Exception as e:
             raise(f"Error with client setups: {e}")
+
+        self.S3_BUCKET = s3_bucket
+        self.S3_KEY = s3_key
 
     def send_to_s3(self, filename, upload_bucket, upload_key):
         """Will take a file from the root folder in which the function is being run from and upload to the respective S3 bucket (upload bucket + upload key)
@@ -74,7 +79,13 @@ class Operations:
 
             return message
 
-    def df_to_s3(self, df, bucket: str, key:str, file_name):
+    def df_to_s3(self, df, file_name, bucket: str = None, key: str = None):
+        if not bucket:
+            bucket = self.S3_BUCKET
+
+        if not key:
+            key = self.S3_KEY
+
         csv_buffer = StringIO()
         df.to_csv(csv_buffer)
 
